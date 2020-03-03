@@ -3,3 +3,4 @@ test/.env
 convertMan
 .idea
 __*_bin
+vendor
