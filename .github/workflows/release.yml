@@ -25,6 +25,7 @@ jobs:
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CGO_ENABLED: 0
         GOARCH: amd64
         GOOS: linux
   release-darwin-386:
