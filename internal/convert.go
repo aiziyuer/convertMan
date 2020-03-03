@@ -22,7 +22,7 @@ func ConvertFiles(iFormat string, oFormat string, paths []string) (string, error
 
 		for _, path := range paths {
 
-			if iFormat == gfile.Ext(path) {
+			if iFormat == gfile.ExtName(path) {
 				content, err := ioutil.ReadFile(path)
 				if err != nil {
 					return "", err
