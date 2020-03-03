@@ -1,9 +1,7 @@
-name: release
+name: Release
 
 on:
-  push:
-    branches-ignore:
-      - '**'
+  create:
     tags:
       - 'v*'
 
