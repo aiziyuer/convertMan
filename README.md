@@ -16,7 +16,7 @@ go get -u -v github.com/aiziyuer/convertMan
 
 ``` bash
 # default output format is json
-➜  convertMan << EOF
+➜  convertMan <<EOF
 teenagers:
   - body
   - girl
@@ -24,7 +24,7 @@ EOF
 {"teenagers":["body","girl"]}
 
 # options output format: yaml,json,toml,ini,xml
-➜  convertMan -o toml << EOF
+➜  convertMan -o toml <<EOF
 teenagers:
   - body
   - girl
