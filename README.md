@@ -4,7 +4,7 @@ convertMan ![Build Test](https://github.com/aiziyuer/convertMan/workflows/Build%
 `convertMan` is a tool help you convert between `yaml`/`xml`/`json`/`toml`independently.
 
 
-## ⚙️ Installation
+## ⚙ Installation
 
 ``` bash
 CGO_ENABLED=0 \
@@ -12,7 +12,7 @@ GOBIN=/usr/bin \
 go get -u -v github.com/aiziyuer/convertMan
 ```
 
-## ⚡️ Quickstart
+## ⚡ Quickstart
 
 ``` bash
 # default output format is json
@@ -31,7 +31,6 @@ teenagers:
 EOF
 teenagers = ["body", "girl"]
 
-
 ➜  convertMan -h
 Usage:
   convertMan [input file] [flags]
@@ -48,4 +47,4 @@ Flags:
 
 ## 🎯 Features
 
-## ⭐️ FAQ
+## ⭐ FAQ
