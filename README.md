@@ -1,5 +1,5 @@
-convertMan [![CI](https://github.com/aiziyuer/convertMan/workflows/CI/badge.svg)](https://github.com/aiziyuer/convertMan/actions?query=workflow%3ACI) [![Release](https://github.com/aiziyuer/convertMan/workflows/Release/badge.svg)](https://github.com/aiziyuer/convertMan/releases)
-[![download](https://img.shields.io/badge/dynamic/json.svg?label=download&url=https://api.github.com/repos/aiziyuer/convertMan/releases/latest&query=$.assets%5B0%5D.name)](https://github.com/aiziyuer/convertMan/releases/latest/download/convertMan_v0.0.1_linux_amd64.tar.gz)
+convertMan [![CI](https://github.com/aiziyuer/convertMan/workflows/CI/badge.svg)](https://github.com/aiziyuer/convertMan/actions?query=workflow%3ACI) [![Release](https://github.com/aiziyuer/convertMan/workflows/Release/badge.svg)](https://github.com/aiziyuer/convertMan/releases/latest)
+[![GitHub Releases](https://img.shields.io/github/downloads/aiziyuer/convertMan/latest/total)](https://github.com/aiziyuer/convertMan/releases/latest)
 ---
 
 `convertMan` is a tool help you convert between `yaml`/`xml`/`json`/`toml`independently.
