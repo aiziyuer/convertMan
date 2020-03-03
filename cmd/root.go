@@ -1,9 +1,14 @@
 package cmd
 
 import (
+	"bufio"
 	"errors"
+	"fmt"
+	"github.com/aiziyuer/convertMan/internal"
+	"io"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/sirupsen/logrus"
@@ -16,7 +21,7 @@ var rootCmd = &cobra.Command{
 }
 
 var level string
-var outputFormat string
+var iFormat, oFormat string
 var configDir string
 
 // Execute export
@@ -50,7 +55,11 @@ func init() {
 		if len(paths) > 0 {
 
 			// read from file
-
+			output, err := internal.ConvertFiles(iFormat, oFormat, paths)
+			if err != nil {
+				return err
+			}
+			fmt.Println(output)
 			return nil
 		} else {
 
@@ -65,10 +74,31 @@ func init() {
 			} else {
 
 				// read from pipe
+				var sb strings.Builder
+				reader := bufio.NewReader(cmd.InOrStdin())
+
+				for {
+					r, _, err := reader.ReadRune()
+					if err != nil {
+						if err == io.EOF {
+							break
+						} else {
+							return err
+						}
+					}
+
+					_, _ = sb.WriteRune(r)
+				}
+
+				content := sb.String()
+				logrus.Debugf("input content: %s", content)
+				output, err := internal.ConvertContent(iFormat, oFormat, content)
+				if err != nil {
+					return err
+				}
+				fmt.Println(output)
 				return nil
-
 			}
-
 		}
 
 	}
@@ -82,9 +112,15 @@ func init() {
 	)
 
 	rootCmd.PersistentFlags().StringVarP(
-		&outputFormat,
+		&iFormat,
+		"input", "i", "yaml",
+		"input format: auto(default for file), yaml, json, ini, xml, toml",
+	)
+
+	rootCmd.PersistentFlags().StringVarP(
+		&oFormat,
 		"output", "o", "json",
-		"options output format: yaml, json",
+		"output format: yaml, json, ini, xml, toml",
 	)
 
 	home, err := homedir.Dir()
