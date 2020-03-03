@@ -5,7 +5,7 @@ on:
     branches-ignore:
       - '**'
     tags:
-      - 'v*.*.*'
+      - 'v*'
 
 jobs:
   release-linux-386:
