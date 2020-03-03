@@ -73,46 +73,43 @@ func init() {
 			}
 			fmt.Println(output)
 			return nil
-		} else {
-
-			// try read from pipe
-			fileInfo, _ := os.Stdin.Stat()
-			if fileInfo.Mode()&os.ModeCharDevice != 0 {
-
-				// no pipe input, no file input, error tips and usage tips
-				cmd.SilenceUsage = false
-				return errors.New("input content or input file is neeed. ")
-
-			} else {
-
-				// read from pipe
-				var sb strings.Builder
-				reader := bufio.NewReader(cmd.InOrStdin())
-
-				for {
-					r, _, err := reader.ReadRune()
-					if err != nil {
-						if err == io.EOF {
-							break
-						} else {
-							return err
-						}
-					}
-
-					_, _ = sb.WriteRune(r)
-				}
-
-				content := sb.String()
-				logrus.Debugf("input content: %s", content)
-				output, err := internal.ConvertContent(iFormat, oFormat, content)
-				if err != nil {
-					return err
-				}
-				fmt.Println(output)
-				return nil
-			}
 		}
 
+		// try read from pipe
+		fileInfo, _ := os.Stdin.Stat()
+		if fileInfo.Mode()&os.ModeCharDevice != 0 {
+
+			// no pipe input, no file input, error tips and usage tips
+			cmd.SilenceUsage = false
+			return errors.New("input content or input file is neeed. ")
+
+		}
+
+		// read from pipe
+		var sb strings.Builder
+		reader := bufio.NewReader(cmd.InOrStdin())
+
+		for {
+			r, _, err := reader.ReadRune()
+			if err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					return err
+				}
+			}
+
+			_, _ = sb.WriteRune(r)
+		}
+
+		content := sb.String()
+		logrus.Debugf("input content: %s", content)
+		output, err := internal.ConvertContent(iFormat, oFormat, content)
+		if err != nil {
+			return err
+		}
+		fmt.Println(output)
+		return nil
 	}
 
 	rootCmd.PersistentFlags().StringVarP(
