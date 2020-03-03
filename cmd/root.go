@@ -106,8 +106,8 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVarP(
 		&level,
-		"verbose",
-		"v",
+		"level",
+		"l",
 		logrus.WarnLevel.String(),
 		"Log level (trace, debug, info, warn, error, fatal, panic) ",
 	)
@@ -134,4 +134,6 @@ func init() {
 		"config", "", path.Join(home, ".convertMan"),
 		"location of config files like $CONVERT_MAN_CONFIG ",
 	)
+
+	rootCmd.Version = version
 }
