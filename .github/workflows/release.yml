@@ -5,7 +5,7 @@ on:
     tags:
       - "v*"
   release:
-    types: [published, created, edited, prereleased]
+    types: [published, prereleased]
 
 jobs:
   release-linux-386:
@@ -17,6 +17,7 @@ jobs:
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CGO_ENABLED: 0
         GOARCH: "386"
         GOOS: linux
   release-linux-amd64:
@@ -40,6 +41,7 @@ jobs:
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CGO_ENABLED: 0
         GOARCH: amd64
         GOOS: darwin
   release-windows-386:
@@ -51,6 +53,7 @@ jobs:
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CGO_ENABLED: 0
         GOARCH: "386"
         GOOS: windows
   release-windows-amd64:
@@ -62,5 +65,6 @@ jobs:
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CGO_ENABLED: 0
         GOARCH: amd64
         GOOS: windows
