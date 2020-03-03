@@ -1,4 +1,4 @@
-convertMan ![CI](https://github.com/aiziyuer/convertMan/workflows/CI/badge.svg) ![Release](https://github.com/aiziyuer/convertMan/workflows/Release/badge.svg)
+convertMan [![CI](https://github.com/aiziyuer/convertMan/workflows/CI/badge.svg)](https://github.com/aiziyuer/convertMan/actions?query=workflow%3ACI) [![Release](https://github.com/aiziyuer/convertMan/workflows/Release/badge.svg)](https://github.com/aiziyuer/convertMan/releases)
 ---
 
 `convertMan` is a tool help you convert between `yaml`/`xml`/`json`/`toml`independently.
