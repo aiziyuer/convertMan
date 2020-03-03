@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/aiziyuer/convertMan/internal"
-	util "github.com/aiziyuer/convertMan/internal/utils"
 	"github.com/joho/godotenv"
 
 	"github.com/mitchellh/go-homedir"
@@ -41,13 +40,6 @@ func init() {
 
 	// detect the log level
 	rootCmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
-
-		l, err := logrus.ParseLevel(util.GetEnvAnyWithDefault("LOG_LEVEL", "warn"))
-		if err != nil {
-			l = logrus.DebugLevel
-			logrus.SetLevel(l)
-			return nil
-		}
 
 		level, err := logrus.ParseLevel(level)
 		if err != nil {
