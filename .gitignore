@@ -1,0 +1,5 @@
+test/.env
+*.exe
+convertMan
+.idea
+__*_bin
