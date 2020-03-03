@@ -2,13 +2,15 @@ package internal
 
 import (
 	"errors"
+	"io/ioutil"
+	"strings"
+
 	"github.com/gogf/gf/encoding/gparser"
 	"github.com/gogf/gf/os/gfile"
 	"github.com/sirupsen/logrus"
-	"io/ioutil"
-	"strings"
 )
 
+// ConvertFiles convert from files
 func ConvertFiles(iFormat string, oFormat string, paths []string) (string, error) {
 
 	switch iFormat {
@@ -50,6 +52,7 @@ func ConvertFiles(iFormat string, oFormat string, paths []string) (string, error
 
 }
 
+// ConvertContent convert content directly
 func ConvertContent(iFormat string, oFormat string, content string) (string, error) {
 
 	var p *gparser.Parser
