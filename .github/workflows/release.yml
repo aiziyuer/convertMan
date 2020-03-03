@@ -7,7 +7,7 @@ on:
     tags:
       - 'v*'
   release:
-    types: [published]
+    types: [created, published]
 
 jobs:
   release-linux-386:
