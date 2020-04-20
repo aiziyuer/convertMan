@@ -1,46 +1,64 @@
 package internal
 
 import (
-	"errors"
-	"io/ioutil"
-	"strings"
-
 	"github.com/gogf/gf/encoding/gparser"
-	"github.com/gogf/gf/os/gfile"
+	"github.com/imdario/mergo"
+	_ "github.com/imdario/mergo"
 	"github.com/sirupsen/logrus"
+	"io/ioutil"
 )
+
+const FileFormatYaml = "yaml"
 
 // ConvertFiles convert from files
 func ConvertFiles(iFormat string, oFormat string, paths []string) (string, error) {
 
 	switch iFormat {
-	case "yaml":
-
-		var sb strings.Builder
+	case FileFormatYaml:
 
 		// if all file is yaml, the yaml can be combine
+		if len(paths) > 1 {
 
-		for _, path := range paths {
+			defaultObject, err := file2Map(paths[0])
+			if err != nil {
+				return "", err
+			}
 
-			if iFormat == gfile.ExtName(path) {
-				content, err := ioutil.ReadFile(path)
+			for i := 1; i < len(paths); i++ {
+				newObject, err := file2Map(paths[i])
 				if err != nil {
 					return "", err
 				}
-				sb.WriteString(string(content))
+				err = mergo.Merge(&defaultObject, newObject,
+					mergo.WithOverrideEmptySlice,
+					mergo.WithOverride,
+					mergo.WithOverwriteWithEmptyValue,
+				)
+				if err != nil {
+					return "", err
+				}
 			}
-		}
 
-		if sb.Len() == 0 {
-			return "", errors.New("no content detected, empty files? ")
-		}
+			return gparser.VarToYamlString(defaultObject)
 
-		p, err := gparser.LoadContent(sb.String())
-		if err != nil {
-			return "", err
-		}
+		} else {
 
-		return reduce(p, oFormat)
+			content, err := ioutil.ReadFile(paths[0])
+			if err != nil {
+				return "", err
+			}
+
+			if len(content) == 0 {
+				return "", nil
+			}
+
+			p, err := gparser.LoadContent(content)
+			if err != nil {
+				return "", err
+			}
+
+			return reduce(p, oFormat)
+		}
 
 	default:
 		p, err := gparser.Load(paths[0])
@@ -52,6 +70,21 @@ func ConvertFiles(iFormat string, oFormat string, paths []string) (string, error
 
 }
 
+func file2Map(path string) (map[string]interface{}, error) {
+
+	content, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	p, err := gparser.LoadContent(content)
+	if err != nil {
+		return nil, err
+	}
+
+	return p.ToMap(), nil
+}
+
 // ConvertContent convert content directly
 func ConvertContent(iFormat string, oFormat string, content string) (string, error) {
 
@@ -59,7 +92,7 @@ func ConvertContent(iFormat string, oFormat string, content string) (string, err
 	var err error
 
 	switch iFormat {
-	case "yaml":
+	case FileFormatYaml:
 		p, err = gparser.LoadYaml(content)
 	case "json":
 		p, err = gparser.LoadJson(content)
@@ -87,7 +120,7 @@ func reduce(p *gparser.Parser, oFormat string) (string, error) {
 	var err error
 
 	switch oFormat {
-	case "yaml":
+	case FileFormatYaml:
 		ret, err = p.ToYamlString()
 	case "json":
 		ret, err = p.ToJsonString()

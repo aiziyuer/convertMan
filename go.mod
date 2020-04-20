@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/gogf/gf v1.11.5
+	github.com/imdario/mergo v0.3.9
 	github.com/joho/godotenv v1.3.0
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
