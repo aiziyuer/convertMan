@@ -44,7 +44,28 @@ Flags:
   -v, --verbose string   Log level (trace, debug, info, warn, error, fatal, panic)  (default "warning")
 ```
 
-## 🤖 Benchmarks
+## 🤖 More
+
+combine multiple yaml config with default.
+``` bash
+➜  ~ cat<<EOF>default.yaml
+data:
+  a: 1
+  b: 2
+  c: 3
+EOF
+
+➜  ~ cat<<EOF>new.yaml
+data:
+  a: 22222
+EOF
+
+➜  ~ convertMan default.yaml new.yaml
+data:
+    a: 22222
+    b: 2
+    c: 3
+```
 
 ## 🎯 Features
 
